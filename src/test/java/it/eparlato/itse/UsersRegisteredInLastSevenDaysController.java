@@ -1,6 +1,6 @@
 package it.eparlato.itse;
 
-import java.util.Date;
+import java.util.List;
 
 public class UsersRegisteredInLastSevenDaysController {
 
@@ -12,7 +12,13 @@ public class UsersRegisteredInLastSevenDaysController {
         this.webPage = webPage;
     }
 
-    public void showRegisteredUserSevenDaysBackFrom(Date date) {
-        webPage.showNoCustomerFoundPage();
+    public void showRegisteredUserSevenDaysBackFrom(String date) {
+        List<Customer> totalRegisteredCustomers = usersRepository.findAllCustomersWhoHaveSignedUpSince(date);
+
+        if (totalRegisteredCustomers.size() == 0) {
+            webPage.showNoCustomerFoundPage();
+        } else {
+            webPage.showCustomerDetailPage(totalRegisteredCustomers.get(0));
+        }
     }
 }
