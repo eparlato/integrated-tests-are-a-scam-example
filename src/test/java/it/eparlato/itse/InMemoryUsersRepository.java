@@ -13,7 +13,7 @@ public class InMemoryUsersRepository implements UsersRepository {
         List<Customer> customers = new ArrayList<Customer>();
 
         for (Customer customer : registeredCustomers) {
-            if (customer.hasBeenRegisteredDuringOrAfter(date)) {
+            if (customer.hasRegisteredDuringOrAfter(date)) {
                 customers.add(customer);
             }
         }

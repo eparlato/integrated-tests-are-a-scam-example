@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface UsersRepository {
     List<Customer> findAllCustomersWhoHaveSignedUpSince(Calendar date) throws ParseException;
+
+    void registerCustomer(Customer customer);
+
 }

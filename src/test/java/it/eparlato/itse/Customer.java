@@ -9,7 +9,7 @@ public class Customer {
         this.registrationDate = registrationDate;
     }
 
-    public boolean hasBeenRegisteredDuringOrAfter(Calendar startDate) {
+    public boolean hasRegisteredDuringOrAfter(Calendar startDate) {
 
         if (registrationDate.compareTo(startDate) >= 0) {
             return true;
