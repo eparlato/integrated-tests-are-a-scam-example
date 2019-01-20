@@ -1,23 +1,22 @@
 package it.eparlato.itse;
 
-import javax.management.AttributeList;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class InMemoryUsersRepository implements UsersRepository {
 
-    private int totalRegisteredCustomers = 0;
     private List<Customer> registeredCustomers = new ArrayList<Customer>();
 
-    public InMemoryUsersRepository withTotalRegisteredCustomersOf(int totalRegisteredCustomers) {
-        this.totalRegisteredCustomers = totalRegisteredCustomers;
-        return this;
-    }
 
-    public List<Customer> findAllCustomersWhoHaveSignedUpSince(String date) {
+    public List<Customer> findAllCustomersWhoHaveSignedUpSince(Calendar date) {
         List<Customer> customers = new ArrayList<Customer>();
 
+        for (Customer customer : registeredCustomers) {
+            if (customer.hasBeenRegisteredDuringOrAfter(date)) {
+                customers.add(customer);
+            }
+        }
 
         return customers;
     }

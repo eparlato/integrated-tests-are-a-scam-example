@@ -1,9 +1,20 @@
 package it.eparlato.itse;
 
-public class Customer {
-    private final String registrationDate;
+import java.util.Calendar;
 
-    public Customer(String registrationDate) {
+public class Customer {
+    private final Calendar registrationDate;
+
+    public Customer(Calendar registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public boolean hasBeenRegisteredDuringOrAfter(Calendar startDate) {
+
+        if (registrationDate.compareTo(startDate) >= 0) {
+            return true;
+        }
+
+        return false;
     }
 }
