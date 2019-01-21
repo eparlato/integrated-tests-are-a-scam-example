@@ -23,7 +23,7 @@ public class UsersRegisteredInLastSevenDaysControllerTest {
     public void shouldShowNoCustomerFoundPageIfRegisteredListIsEmpty() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("10/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("27/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -31,11 +31,11 @@ public class UsersRegisteredInLastSevenDaysControllerTest {
     @Test
     public void shouldShowNoCustomerFoundPageIfThereAreCustomersButNoneRegisteredSevenDaysBefore() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("12/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("11/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("09/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("05/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("04/01/2019")));
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("20/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("17/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -44,17 +44,19 @@ public class UsersRegisteredInLastSevenDaysControllerTest {
     public void shouldNotShowNoCustomerFoundPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
         usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("08/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("11/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
         usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("02/01/2019")));
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("18/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("17/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(false));
     }
 
     @Test
     public void shouldShowCustomerDetailPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("04/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("08/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("02/01/2019")));
 
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
