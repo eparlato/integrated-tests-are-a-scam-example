@@ -21,15 +21,16 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
     ReportWebPageSpy webPage;
     UsersRepository usersRepository = context.mock(UsersRepository.class);
+    UsersRegisteredInLastSevenDaysController controller;
 
     @Before
     public void init() {
         webPage = new ReportWebPageSpy();
+        controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
     }
 
     @Test
     public void shouldShowNoCustomerFoundPageIfRegisteredListIsEmpty() throws Exception {
-        UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
         context.checking(new Expectations(){{
             // Expectation
@@ -45,8 +46,6 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
     @Test
     public void shouldShowCustomerDetailPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
-        final UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
-
         final List<Customer> expectedCustomersList = Arrays.asList(new Customer(DateUtils.calendarFromString("10/01/2019")));
 
         context.checking(new Expectations(){{
@@ -54,10 +53,29 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
             will(returnValue(expectedCustomersList));
         }});
 
-
         controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("17/01/2019"));
 
-
         assertThat(webPage.showCustomerDetailPageHasBeenCalled(), is(true));
+    }
+
+    @Test
+    public void shouldShowCustomersListIfThereAreFewCustomersRegisteredSevenDaysBefore() throws Exception {
+        final List<Customer> expectedCustomersList = new ArrayList<Customer>();
+        expectedCustomersList.add(new Customer(DateUtils.calendarFromString("08/01/2019")));
+        expectedCustomersList.add(new Customer(DateUtils.calendarFromString("09/01/2019")));
+        expectedCustomersList.add(new Customer(DateUtils.calendarFromString("10/01/2019")));
+        expectedCustomersList.add(new Customer(DateUtils.calendarFromString("11/01/2019")));
+        expectedCustomersList.add(new Customer(DateUtils.calendarFromString("12/01/2019")));
+
+
+        context.checking(new Expectations(){{
+            oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(DateUtils.calendarFromString("13/01/2019"));
+            will(returnValue(expectedCustomersList));
+        }});
+
+
+        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("20/01/2019"));
+
+        assertThat(webPage.showCustomersListHasBeenCalled(), is(true));
     }
 }

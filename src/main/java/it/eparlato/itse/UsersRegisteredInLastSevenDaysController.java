@@ -20,8 +20,10 @@ public class UsersRegisteredInLastSevenDaysController {
 
         if (totalRegisteredCustomers.size() == 0) {
             webPage.showNoCustomerFoundPage();
-        } else {
+        } else if (totalRegisteredCustomers.size() == 1){
             webPage.showCustomerDetailPage(totalRegisteredCustomers.get(0));
+        } else {
+            webPage.showCustomersList(totalRegisteredCustomers);
         }
     }
 
