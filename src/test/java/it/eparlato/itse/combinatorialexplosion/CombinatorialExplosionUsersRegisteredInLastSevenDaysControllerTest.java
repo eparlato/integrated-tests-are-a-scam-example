@@ -66,6 +66,6 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
         assertThat(webPage.showCustomerDetailPageHasBeenCalled(), is(true));
     }
 
-    // TODO: more client tests...
+    // TODO: complete collaboration tests...
 
 }

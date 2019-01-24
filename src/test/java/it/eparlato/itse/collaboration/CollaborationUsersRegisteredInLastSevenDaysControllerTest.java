@@ -68,12 +68,12 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
 
         context.checking(new Expectations(){{
-            oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(DateUtils.calendarFromString("13/01/2019"));
+            oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(DateUtils.calendarFromString("06/01/2019"));
             will(returnValue(expectedCustomersList));
         }});
 
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("20/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("13/01/2019"));
 
         assertThat(webPage.showCustomersListHasBeenCalled(), is(true));
     }

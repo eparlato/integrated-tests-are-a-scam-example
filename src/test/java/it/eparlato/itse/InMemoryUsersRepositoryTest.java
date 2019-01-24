@@ -45,5 +45,20 @@ public class InMemoryUsersRepositoryTest {
         assertThat(customers.size(), is(1));
     }
 
+    @Test
+    public void shouldReturnAListOfFewRegisteredCustomers() throws Exception {
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("05/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("08/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("09/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("11/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("12/01/2019")));
+
+
+        List<Customer> customers = usersRepository.findAllCustomersWhoHaveSignedUpSince(DateUtils.calendarFromString("06/01/2019"));
+
+        assertThat(customers.size(), is(5));
+    }
+
     // TODO: complete contract tests...
 }
