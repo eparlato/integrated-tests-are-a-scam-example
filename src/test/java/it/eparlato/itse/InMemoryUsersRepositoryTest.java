@@ -45,5 +45,5 @@ public class InMemoryUsersRepositoryTest {
         assertThat(customers.size(), is(1));
     }
 
-    // TODO: more server tests...
+    // TODO: complete contract tests. Don't forget to test registerCustomer(). It's not part of the contract with the client, test it anyway
 }

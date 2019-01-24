@@ -1,12 +1,13 @@
-package it.eparlato.itse;
+package it.eparlato.itse.combinatorialexplosion;
 
+import it.eparlato.itse.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class UsersRegisteredInLastSevenDaysControllerTest {
+public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest {
     ReportWebPageSpy webPage;
     InMemoryUsersRepository usersRepository;
 
