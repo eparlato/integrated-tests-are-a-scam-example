@@ -9,7 +9,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class InMemoryUsersRepositoryTest {
-    UsersRepository usersRepository;
+    InMemoryUsersRepository usersRepository;
 
     @Before
     public void init() {
