@@ -55,7 +55,7 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
 
     @Test
     public void shouldShowCustomerDetailPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("08/01/2019")));
+        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("01/01/2019")));
         usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
         usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("02/01/2019")));
 
