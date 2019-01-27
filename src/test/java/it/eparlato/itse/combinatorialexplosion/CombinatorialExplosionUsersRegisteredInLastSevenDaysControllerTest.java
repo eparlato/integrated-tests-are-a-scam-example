@@ -1,6 +1,7 @@
 package it.eparlato.itse.combinatorialexplosion;
 
 import it.eparlato.itse.*;
+import it.eparlato.itse.server.InMemoryUsersRepository;
 import org.junit.Before;
 import org.junit.Test;
 

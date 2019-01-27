@@ -1,5 +1,7 @@
-package it.eparlato.itse;
+package it.eparlato.itse.server;
 
+import it.eparlato.itse.Customer;
+import it.eparlato.itse.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 

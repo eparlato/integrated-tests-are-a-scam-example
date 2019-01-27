@@ -1,6 +1,8 @@
 package it.eparlato.itse;
 
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 
 public class Customer {
     private final Calendar registrationDate;
@@ -16,5 +18,9 @@ public class Customer {
         }
 
         return false;
+    }
+
+    public static interface UsersRepository {
+        List<Customer> findAllCustomersWhoHaveSignedUpSince(Calendar date) throws ParseException;
     }
 }
