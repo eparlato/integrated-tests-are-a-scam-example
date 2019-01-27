@@ -20,7 +20,4 @@ public class Customer {
         return false;
     }
 
-    public static interface UsersRepository {
-        List<Customer> findAllCustomersWhoHaveSignedUpSince(Calendar date) throws ParseException;
-    }
 }

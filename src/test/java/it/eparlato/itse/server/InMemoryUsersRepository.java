@@ -1,7 +1,6 @@
 package it.eparlato.itse.server;
 
 import it.eparlato.itse.Customer;
-import it.eparlato.itse.UsersRepository;
 
 import java.util.ArrayList;
 import java.util.Calendar;

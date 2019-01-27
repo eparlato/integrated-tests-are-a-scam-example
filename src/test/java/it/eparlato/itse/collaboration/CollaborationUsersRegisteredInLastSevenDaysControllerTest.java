@@ -1,6 +1,7 @@
 package it.eparlato.itse.collaboration;
 
 import it.eparlato.itse.*;
+import it.eparlato.itse.server.UsersRepository;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;

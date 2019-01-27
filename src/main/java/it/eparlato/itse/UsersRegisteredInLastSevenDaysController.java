@@ -1,15 +1,17 @@
 package it.eparlato.itse;
 
+import it.eparlato.itse.server.UsersRepository;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
 public class UsersRegisteredInLastSevenDaysController {
 
-    private final Customer.UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
     private final ReportWebPage webPage;
 
-    public UsersRegisteredInLastSevenDaysController(Customer.UsersRepository usersRepository, ReportWebPage webPage) {
+    public UsersRegisteredInLastSevenDaysController(UsersRepository usersRepository, ReportWebPage webPage) {
         this.usersRepository = usersRepository;
         this.webPage = webPage;
     }
