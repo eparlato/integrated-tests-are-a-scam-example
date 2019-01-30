@@ -5,6 +5,9 @@ import it.eparlato.itse.server.InMemoryUsersRepository;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.util.Calendar;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -25,7 +28,7 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
     public void shouldShowNoCustomerFoundPageIfRegisteredListIsEmpty() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("27/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(date("27/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -33,11 +36,11 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
     @Test
     public void shouldShowNoCustomerFoundPageIfThereAreCustomersButNoneRegisteredSevenDaysBefore() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("09/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("05/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("04/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("09/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("05/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("04/01/2019")));
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("17/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(date("17/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -45,28 +48,32 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
     @Test
     public void shouldNotShowNoCustomerFoundPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("08/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("02/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("08/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("10/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("02/01/2019")));
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("17/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(date("17/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(false));
     }
 
     @Test
     public void shouldShowCustomerDetailPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("01/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("10/01/2019")));
-        usersRepository.registerCustomer(new Customer(DateUtils.calendarFromString("02/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("01/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("10/01/2019")));
+        usersRepository.registerCustomer(new Customer(date("02/01/2019")));
 
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
-        controller.showRegisteredUserSevenDaysBackFrom(DateUtils.calendarFromString("10/01/2019"));
+        controller.showRegisteredUserSevenDaysBackFrom(date("10/01/2019"));
 
         assertThat(webPage.showCustomerDetailPageHasBeenCalled(), is(true));
     }
 
     // TODO: complete collaboration tests...
+
+    private Calendar date(String dateAsString) throws ParseException {
+        return DateUtils.calendarFromString(dateAsString);
+    }
 
 }
