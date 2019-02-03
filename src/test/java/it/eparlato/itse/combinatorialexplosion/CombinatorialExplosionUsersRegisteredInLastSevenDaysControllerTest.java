@@ -28,7 +28,7 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
     public void shouldShowNoCustomerFoundPageIfRegisteredListIsEmpty() throws Exception {
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("27/01/2019"));
+        controller.showRegisteredUsersSevenDaysBackFrom(date("27/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -40,7 +40,7 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
         usersRepository.registerCustomer(new Customer(date("05/01/2019")));
         usersRepository.registerCustomer(new Customer(date("04/01/2019")));
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("17/01/2019"));
+        controller.showRegisteredUsersSevenDaysBackFrom(date("17/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -52,7 +52,7 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
         usersRepository.registerCustomer(new Customer(date("10/01/2019")));
         usersRepository.registerCustomer(new Customer(date("02/01/2019")));
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("17/01/2019"));
+        controller.showRegisteredUsersSevenDaysBackFrom(date("17/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(false));
     }
@@ -65,7 +65,7 @@ public class CombinatorialExplosionUsersRegisteredInLastSevenDaysControllerTest 
 
         UsersRegisteredInLastSevenDaysController controller = new UsersRegisteredInLastSevenDaysController(usersRepository, webPage);
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("10/01/2019"));
+        controller.showRegisteredUsersSevenDaysBackFrom(date("10/01/2019"));
 
         assertThat(webPage.showCustomerDetailPageHasBeenCalled(), is(true));
     }

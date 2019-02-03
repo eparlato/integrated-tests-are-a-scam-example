@@ -22,8 +22,9 @@ public class InMemoryUsersRepositoryTest {
 
     @Test
     public void shouldReturnNoCustomersIfRegisteredListIsEmpty() throws Exception {
+        // ACTION
         List<Customer> customers = usersRepository.findAllCustomersWhoHaveSignedUpSince(date("20/01/2019"));
-
+        // ASSERTION
         assertThat(customers.isEmpty(), is(true));
     }
 

@@ -35,13 +35,13 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
     public void shouldShowNoCustomerFoundPageIfRegisteredListIsEmpty() throws Exception {
 
         context.checking(new Expectations(){{
-            // Expectation
+            // EXPECTATION
             oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("20/01/2019"));
-            // Stub
+            // STUB, ANSWER
             will(returnValue(new ArrayList<Customer>()));
         }});
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("27/01/2019"));
+        controller.showRegisteredUsersSevenDaysBackFrom(date("27/01/2019"));
 
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
@@ -55,7 +55,7 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
             will(returnValue(expectedCustomersList));
         }});
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("17/01/2019"));
+        controller.showRegisteredUsersSevenDaysBackFrom(date("17/01/2019"));
 
         assertThat(webPage.showCustomerDetailPageHasBeenCalled(), is(true));
     }
@@ -69,16 +69,14 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
         expectedCustomersList.add(newCustomer("11/01/2019"));
         expectedCustomersList.add(newCustomer("12/01/2019"));
 
-
         context.checking(new Expectations(){{
             oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("06/01/2019"));
             will(returnValue(expectedCustomersList));
         }});
 
+        controller.showRegisteredUsersSevenDaysBackFrom(date("13/01/2019"));
 
-        controller.showRegisteredUserSevenDaysBackFrom(date("13/01/2019"));
-
-        assertThat(webPage.showCustomersListHasBeenCalled(), is(true));
+        assertThat(webPage.showCustomersListPageHasBeenCalled(), is(true));
     }
 
     // TODO: continue with other collaboration tests

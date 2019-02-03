@@ -7,5 +7,5 @@ public interface ReportWebPage {
 
     void showCustomerDetailPage(Customer customer);
 
-    void showCustomersList(List<Customer> totalRegisteredCustomers);
+    void showCustomersListPage(List<Customer> totalRegisteredCustomers);
 }

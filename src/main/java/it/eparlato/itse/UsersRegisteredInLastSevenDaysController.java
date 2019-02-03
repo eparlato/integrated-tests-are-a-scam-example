@@ -16,7 +16,7 @@ public class UsersRegisteredInLastSevenDaysController {
         this.webPage = webPage;
     }
 
-    public void showRegisteredUserSevenDaysBackFrom(Calendar date) throws ParseException {
+    public void showRegisteredUsersSevenDaysBackFrom(Calendar date) throws ParseException {
         Calendar sevenDaysAgo = sevenDaysAgoFrom(date);
         List<Customer> totalRegisteredCustomers = usersRepository.findAllCustomersWhoHaveSignedUpSince(sevenDaysAgo);
 
@@ -25,7 +25,7 @@ public class UsersRegisteredInLastSevenDaysController {
         } else if (totalRegisteredCustomers.size() == 1){
             webPage.showCustomerDetailPage(totalRegisteredCustomers.get(0));
         } else {
-            webPage.showCustomersList(totalRegisteredCustomers);
+            webPage.showCustomersListPage(totalRegisteredCustomers);
         }
     }
 
