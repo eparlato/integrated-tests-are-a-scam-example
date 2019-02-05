@@ -1,12 +1,13 @@
 package it.eparlato.itse.collaboration;
 
-import it.eparlato.itse.*;
+import it.eparlato.itse.Customer;
+import it.eparlato.itse.DateUtils;
+import it.eparlato.itse.ReportWebPageSpy;
+import it.eparlato.itse.UsersRegisteredInLastSevenDaysController;
 import it.eparlato.itse.server.UsersRepository;
-import org.jmock.Expectations;
-import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,13 +17,11 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
 
 public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
-    @Rule
-    public final JUnitRuleMockery context = new JUnitRuleMockery();
-
     ReportWebPageSpy webPage;
-    UsersRepository usersRepository = context.mock(UsersRepository.class);
+    UsersRepository usersRepository = Mockito.mock(UsersRepository.class);
     UsersRegisteredInLastSevenDaysController controller;
 
     @Before
@@ -33,13 +32,12 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
     @Test
     public void shouldShowNoCustomerFoundPageIfRegisteredListIsEmpty() throws Exception {
+        List<Customer> emptyCustomersList = new ArrayList<Customer>();
 
-        context.checking(new Expectations(){{
-            // EXPECTATION
-            oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("20/01/2019"));
-            // STUB, ANSWER
-            will(returnValue(new ArrayList<Customer>()));
-        }});
+        // EXPECTATION
+        when(usersRepository.findAllCustomersWhoHaveSignedUpSince(date("20/01/2019")))
+        // STUB
+        .thenReturn(emptyCustomersList);
 
         controller.showRegisteredUsersSevenDaysBackFrom(date("27/01/2019"));
 
@@ -48,12 +46,10 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
     @Test
     public void shouldShowCustomerDetailPageIfThereIsOnlyOneCustomerRegisteredSevenDaysBefore() throws Exception {
-        final List<Customer> expectedCustomersList = Arrays.asList(newCustomer("10/01/2019"));
+        List<Customer> expectedCustomersList = Arrays.asList(new Customer(date("10/01/2019")));
 
-        context.checking(new Expectations(){{
-            oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("10/01/2019"));
-            will(returnValue(expectedCustomersList));
-        }});
+        when(usersRepository.findAllCustomersWhoHaveSignedUpSince(date("10/01/2019")))
+                .thenReturn(expectedCustomersList);
 
         controller.showRegisteredUsersSevenDaysBackFrom(date("17/01/2019"));
 
@@ -63,16 +59,14 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
     @Test
     public void shouldShowCustomersListIfThereAreFewCustomersRegisteredSevenDaysBefore() throws Exception {
         final List<Customer> expectedCustomersList = new ArrayList<Customer>();
-        expectedCustomersList.add(newCustomer("08/01/2019"));
-        expectedCustomersList.add(newCustomer("09/01/2019"));
-        expectedCustomersList.add(newCustomer("10/01/2019"));
-        expectedCustomersList.add(newCustomer("11/01/2019"));
-        expectedCustomersList.add(newCustomer("12/01/2019"));
+        expectedCustomersList.add(new Customer(date("08/01/2019")));
+        expectedCustomersList.add(new Customer(date("09/01/2019")));
+        expectedCustomersList.add(new Customer(date("10/01/2019")));
+        expectedCustomersList.add(new Customer(date("11/01/2019")));
+        expectedCustomersList.add(new Customer(date("12/01/2019")));
 
-        context.checking(new Expectations(){{
-            oneOf(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("06/01/2019"));
-            will(returnValue(expectedCustomersList));
-        }});
+        when(usersRepository.findAllCustomersWhoHaveSignedUpSince(date("06/01/2019")))
+                .thenReturn(expectedCustomersList);
 
         controller.showRegisteredUsersSevenDaysBackFrom(date("13/01/2019"));
 
@@ -80,10 +74,6 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
     }
 
     // TODO: continue with other collaboration tests
-
-    private Customer newCustomer(String registrationDate) throws Exception {
-        return new Customer (DateUtils.calendarFromString(registrationDate));
-    }
 
     private Calendar date(String dateAsString) throws ParseException {
         return DateUtils.calendarFromString(dateAsString);
