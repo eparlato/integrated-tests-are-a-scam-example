@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
@@ -41,6 +42,7 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
         controller.showRegisteredUsersSevenDaysBackFrom(date("27/01/2019"));
 
+        verify(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("20/01/2019"));
         assertThat(webPage.showNoCustomerFoundPageHasBeenCalled(), is(true));
     }
 
@@ -53,6 +55,7 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
         controller.showRegisteredUsersSevenDaysBackFrom(date("17/01/2019"));
 
+        verify(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("10/01/2019"));
         assertThat(webPage.showCustomerDetailPageHasBeenCalled(), is(true));
     }
 
@@ -70,6 +73,7 @@ public class CollaborationUsersRegisteredInLastSevenDaysControllerTest {
 
         controller.showRegisteredUsersSevenDaysBackFrom(date("13/01/2019"));
 
+        verify(usersRepository).findAllCustomersWhoHaveSignedUpSince(date("06/01/2019"));
         assertThat(webPage.showCustomersListPageHasBeenCalled(), is(true));
     }
 
